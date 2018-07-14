@@ -4,7 +4,8 @@ const prompt = require('prompt');
 let knn;
 const csvFilePath = 'iris.csv'; // Data
 const names = ['sepalLength', 'sepalWidth', 'petalLength', 'petalWidth', 'type']; // For header
-
+var input=require('./input.json');
+var jsonfile = require('jsonfile');
 let seperationSize; // To seperate training and test data
 
 let data = [], X = [], y = [];
@@ -19,10 +20,13 @@ csv({noheader: true, headers: names})
     .on('done', (error) => {
         seperationSize = 0.7 * data.length;
         data = shuffleArray(data);
+        console.log('calling  dressData');
+
         dressData();
     });
 
 function dressData() {
+    console.log('call  dressData');
 
     /**
      * There are three different types of Iris flowers
@@ -72,6 +76,7 @@ function train() {
 }
 
 function test() {
+    console.log('call  test');
     const result = knn.predict(testSetX);
     const testSetLength = testSetX.length;
     const predictionError = error(result, testSetY);
@@ -91,16 +96,17 @@ function error(predicted, expected) {
 
 function predict() {
     let temp = [];
-    prompt.start();
+   // prompt.start();
     
-    prompt.get(['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width'], function (err, result) {
-        if (!err) {
-            for (var key in result) {
-                temp.push(parseFloat(result[key]));
+   // prompt.get(['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width'], function (err, result) {
+      //  if (!err) {
+            for (var key in input) {
+                temp.push(parseFloat(input[key]));
             }
             console.log(`With ${temp} -- type =  ${knn.predict(temp)}`);
-        }
-    });
+            jsonfile.writeFile('output.json', `With ${temp} -- type =  ${knn.predict(temp)}`);
+       // }
+   // });
 }
 
 /**

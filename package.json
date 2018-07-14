@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "csvtojson": "^1.1.9",
+    "jsonfile": "^4.0.0",
     "ml-knn": "^2.0.0",
     "ml-regression": "^4.2.1",
     "prompt": "^1.0.0"
