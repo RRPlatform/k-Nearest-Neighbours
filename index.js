@@ -104,7 +104,7 @@ function predict() {
                 temp.push(parseFloat(input[key]));
             }
             console.log(`With ${temp} -- type =  ${knn.predict(temp)}`);
-            var inp={temp}
+            var inp=temp
             var out= knn.predict(temp)
             var data ={
                 input: inp,
